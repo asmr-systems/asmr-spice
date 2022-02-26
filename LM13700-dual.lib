@@ -1,0 +1,26 @@
+* A dual LM13700 OTA ngspice model (for KiCAD symbol)
+* file name: LM13700-dual.lib
+*
+* nodes are ordered in the same way as the KiCAD LM13700 Symbol pins are ordered. 
+.subckt LM13700 1ampbias 1diodebias 1posin 1negin 1out negpwr 1bufin 1bufout 2bufout 2bufin pospwr 2out 2negin 2posin 2diodebias 2ampbias
+.include LM13700.mod
+
+* since KiCAD organizes the LM13700 symbol into 5 units (2 OTAs, 2 Buffers, 1 Pwr)
+* we break out each unit here and map the input pins (nodes) to the individual instances
+
+* map pins to Unit A (OTA 1)
+XU1A 2ampbias 2diodebias 2posin 2negin 2out negpwr 2bufin 2bufout pospwr LM13700/NS
+
+* map pins to Unit B (buffer 1)
+XU1B 2ampbias 2diodebias 2posin 2negin 2out negpwr 2bufin 2bufout pospwr LM13700/NS
+
+* map pins to Unit C (OTA 2)
+XU1C 1ampbias 1diodebias 1posin 1negin 1out negpwr 1bufin 1bufout pospwr LM13700/NS
+
+* map pins to Unit D (buffer 2)
+XU1D 1ampbias 1diodebias 1posin 1negin 1out negpwr 1bufin 1bufout pospwr LM13700/NS
+
+* map pins to Unit E (power supply)
+* note: we arbitrarily chose the unit1 specific nodes (we only really care about the power nodes here)
+XU1E 1ampbias 1diodebias 1posin 1negin 1out negpwr 1bufin 1bufout pospwr LM13700/NS
+.ends
