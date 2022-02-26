@@ -1,0 +1,25 @@
+* A quad MCP6009 OpAmp (for KiCAD symbol)
+*
+* nodes are ordered in the same way as the KiCAD Quad OpAmp Symbol pins are ordered. 
+.subckt MCP6009 out1 negin1 posin1 pospwr posin2 negin2 out2 out3 negin3 posin3 negpwr posin4 negin4 out4
+.include MCP6006.mod
+
+* since KiCAD organizes the OpAmp symbol into 5 units (4 OpAmpsb, 1 Pwr)
+* we break out each unit here and map the input pins (nodes) to the individual instances
+
+* map pins to Unit A (OpAmp1)
+XU1A posin1 negin1 pospwr negpwr out1 MCP6006
+
+* map pins to Unit B (OpAmp2)
+XU1B posin2 negin2 pospwr negpwr out2 MCP6006
+
+* map pins to Unit C (OpAmp3)
+XU1C posin3 negin3 pospwr negpwr out3 MCP6006
+
+* map pins to Unit D (OpAmp4)
+XU1D posin4 negin4 pospwr negpwr out4 MCP6006
+
+* map pins to Unit E (power supply)
+* note: we arbitrarily chose the unit1 specific nodes (we only really care about the power nodes here)
+XU1E posin1 negin1 pospwr negpwr out1 MCP6006
+.ends
